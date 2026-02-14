@@ -170,6 +170,8 @@ if st.button("Submit"):
 
     pred = model_xgb.predict(transformed_data.iloc[0:1])
 
+    st.write(pred)
+
     risk_level = classify_risk(pred)
 
     st.write(risk_level)
