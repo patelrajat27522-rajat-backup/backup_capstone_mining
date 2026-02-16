@@ -166,12 +166,13 @@ if st.button("Submit"):
 
 
     pred = model_xgb.predict(data.iloc[0:1])
-
-    st.write(pred)
-
     risk_level = classify_risk(pred)
 
-    st.write(risk_level)
+    st.write(f"Risk Level: {risk_level}, Prediction: {pred[0]}")
+
+
+    st.write(f"Prediction = {pred[0]} | Risk Level = {risk_level}")
+
 
 
 
