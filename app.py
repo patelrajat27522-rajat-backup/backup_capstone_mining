@@ -33,7 +33,6 @@ st.success("Explainer Loaded Successfully")
 
 
 model_xgb = joblib.load('model_xgb.pkl')
-transformer = joblib.load('transformer.pkl')
 
 st.title('Silica Impurity Predictor and Optmizer System')
 st.header(':orange[This application will predict Silica Impurity and tuning assitance for reagants & airflow]')
@@ -130,8 +129,6 @@ if st.button("Submit"):
         "Flotation Column 06 Level",
         "Flotation Column 07 Level"
     ])
-    transformed_data = transformer.transform(data)
-    transformed_data = pd.DataFrame(transformed_data, columns=data.columns)
     st.success("Inputs recorded successfully!")
     st.write({
         "% Iron Feed": iron_feed,
@@ -168,7 +165,7 @@ if st.button("Submit"):
 
 
 
-    pred = model_xgb.predict(transformed_data.iloc[0:1])
+    pred = model_xgb.predict(data.iloc[0:1])
 
     st.write(pred)
 
@@ -178,16 +175,20 @@ if st.button("Submit"):
 
 
 
-    shap_values = explainer(transformed_data)
+    shap_values = explainer(data)
 
 
-    feature_name = transformed_data.columns.tolist()
+    feature_name = data.columns.tolist()
 
     drivers = get_top_drivers(shap_values[0],feature_names=feature_name)
 
-    top_features = enrich_driver_info(drivers, row_data=transformed_data.iloc[0:1])
+    top_features = enrich_driver_info(drivers, row_data=data.iloc[0:1])
+
+    raw_Data = data.iloc[0:1]
 
     prompt = f'''You are a flotation process decision-support assistant have in depth knowledge in reverse flotation of iron mining. 
+
+    This is Raw Input Data {raw_Data}
 
     Predicted Silica Level: {pred}
     Risk Level: {risk_level}
