@@ -130,29 +130,9 @@ if st.button("Submit"):
         "Flotation Column 07 Level"
     ])
     st.success("Inputs recorded successfully!")
-    st.write({
-        "% Iron Feed": iron_feed,
-        "% Silica Feed": silica_feed,
-        "Starch Flow (m3/h)": starch_flow,
-        "Amina Flow (m3/h)": amina_flow,
-        "Ore Pulp Flow (t/h)": ore_pulp_flow,
-        "Ore Pulp pH": ore_pulp_ph,
-        "Ore Pulp Density (kg/cm³)": ore_pulp_density,
-        "Airflow F1": air_flow_f1,
-        "Airflow F2": air_flow_f2,
-        "Airflow F3": air_flow_f3,
-        "Airflow F4": air_flow_f4,
-        "Airflow F5": air_flow_f5,
-        "Airflow F6": air_flow_f6,
-        "Airflow F7": air_flow_f7,
-        "Froth Level F1": froth_lvl_f1,
-        "Froth Level F2": froth_lvl_f2,
-        "Froth Level F3": froth_lvl_f3,
-        "Froth Level F4": froth_lvl_f4,
-        "Froth Level F5": froth_lvl_f5,
-        "Froth Level F6": froth_lvl_f6,
-        "Froth Level F7": froth_lvl_f7
-      })
+
+    st.dataframe(data)
+
 
 
 
@@ -168,10 +148,10 @@ if st.button("Submit"):
     pred = model_xgb.predict(data.iloc[0:1])
     risk_level = classify_risk(pred)
 
-    st.write(f"Risk Level: {risk_level}, Prediction: {pred[0]}")
+    st.write(f"Silica Impurity Predicted (%) {pred[0]}")
+    st.write(f"Risk Level: {risk_level}")
+    
 
-
-    st.write(f"Prediction = {pred[0]} | Risk Level = {risk_level}")
 
 
 
