@@ -148,8 +148,8 @@ if st.button("Submit"):
     pred = model_xgb.predict(data.iloc[0:1])
     risk_level = classify_risk(pred)
 
-    st.write(f"Silica Impurity Predicted (%) {pred[0]}")
-    st.write(f"Risk Level: {risk_level}")
+    st.markdown(f"### **Silica Impurity Predicted (%): {pred[0]:.2f}**")
+    st.markdown(f"### **Risk Level: {risk_level}**")
     
 
 
